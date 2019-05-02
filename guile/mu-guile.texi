@@ -70,7 +70,7 @@ Guile/Scheme is a member of the @emph{Lisp} family of programming languages --
 like emacs-lisp, @emph{Racket}, Common Lisp. If you're not familiar with
 Scheme, @t{mu-guile} is an excellent opportunity to learn a bit about!
 
-Trust me, it's not very hard -- and it it's @emph{fun}!
+Trust me, it's not very hard -- and it's @emph{fun}!
 
 @menu
 * Getting started::
@@ -181,13 +181,19 @@ If necessary, you can add the @t{%load-path} by adding to your
 
 Or, alternatively, you can set @t{GUILE_LOAD_PATH}:
 @example
-export GUILE_LOAD_PATH="/usr/local/share/guile/site/2.0"
+export GUILE_LOAD_PATH=/usr/local/share/guile/site/2.0
 @end example
 
 In both cases the directory should be the directory that contains the
 installed @t{mu.scm}; if you installed @t{mu} under a different prefix, you
 must change the @code{%load-path} accordingly. After this, you should be ready
 to go!
+
+Furthermore, you need to ensure that @t{guile} can find the mu-guile
+library; for this we can use @code{LTDL_LIBRARY_PATH}, e.g.
+@example
+export LTDL_LIBRARY_PATH=/usr/local/lib
+@end example
 
 @node Making sure it works
 @section Making sure it works
@@ -651,13 +657,13 @@ if there is none.
 @item @code{(mu:size <part>)} - returns the size in bytes of the mime-part
 @end itemize
 
-Then, we may want to save the part to a file; this can be done using either:
-@itemize
-@item @code{(mu:save part <part>)} - save a part to a temporary file, return the file
-name@footnote{the temporary filename is a predictable procedure of (user-id,
-msg-path, part-index)}
-@item @code{(mu:save-as <part> <path>)} - save part to file at path
-@end itemize
+@c Then, we may want to save the part to a file; this can be done using either:
+@c @itemize
+@c @item @code{(mu:save part <part>)} - save a part to a temporary file, return the file
+@c name@footnote{the temporary filename is a predictable procedure of (user-id,
+@c msg-path, part-index)}
+@c @item @code{(mu:save-as <part> <path>)} - save part to file at path
+@c @end itemize
 
 @node Attachment example
 @section Attachment example
@@ -974,7 +980,7 @@ own scripts.
   (if (= n 0) 0 (/ len n)))
   ;; this gives a rational, exact result;
   ;; use exact->inexact to get decimals
-  
+
 ;; we we can make this short with the mu:average (with (mu stats))
 (mu:average (lambda (msg) (string-length (or (mu:subject msg) ""))))
 
